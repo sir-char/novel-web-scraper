@@ -16,16 +16,24 @@ with open("data.json", "w") as data_file:
     for post in posts:
         title = post.find('a')['title']
         link = post.find('a')['href']
-        print(title, link)
         data['novel'].append({
             "title": title,
             "link": link
         })
     json.dump(data, data_file, indent=3)
 
-with open("data.json", "r") as data_file:
+with open("data.json", "r+") as data_file:
     data = json.load(data_file)
     for novel in data['novel']:
-        newUrl = f"{url}{novel['link']}"
-        respons = requests.get(newUrl)
-        soup = BeautifulSoup(respons.text, 'html.parser')
+        new_url = f"{url}{novel['link']}"
+        response = requests.get(new_url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        posts = soup.find_all('ul', class_="list-chapter")
+        for post in posts:
+            ch_title = post.find('a')['title']
+            ch_link = post.find('a')['href']
+            novel['chapters'] = {
+                "chapterTitle": ch_title,
+                "chapterLink": ch_link
+            }
+    json.dump(data, data_file, indent=3)
