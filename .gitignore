@@ -1,1 +1,13 @@
 data.json
+checkNovelStats.py
+data_DO_NOT_TOUCH.json
+test.py
+second_data.json
+second_data_DO_NOT_TOUCH.json
+third_data.json
+third_data_DO_NOT_TOUCH.json
+fourth_data.json
+fourth_data_DO_NOT_TOUCH.json
+.vscode
+novelThreading.py
+__pycache__
