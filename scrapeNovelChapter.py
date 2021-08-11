@@ -1,3 +1,5 @@
+from novel_scraper import NovelFull
+
 import requests
 import json
 import time
@@ -42,10 +44,15 @@ url = "https://novelfull.com"
 # header = {'User-Agent': 'Mozilla/5.0'}
 # /reincarnation-of-the-strongest-sword-god/chapter-1-starting-over.html"
 soup = getSoup(url)
-with open("third_data.json", "r") as data_file:
+
+novelSite = NovelFull(url)
+
+# Don't remember why this is here exactly
+with open("json_files/fifth_data.json", "r") as data_file:
     data = json.load(data_file)
 
-with open("third_data.json", "w") as data_file:
+# Scrapes the contents of every chapter in each novel
+with open("json_files/fifth_data.json", "w") as data_file:
     start = time.perf_counter()
     print("Starting scrape.")
     chapters_per_novel = []
@@ -58,37 +65,6 @@ with open("third_data.json", "w") as data_file:
 
         # for chapter in novel['chapters']:
         #     if i >= 15: break
-        #     try:
-        #         print(f"Scraping {novel['title']} {chapter['chapterTitle']}...")
-        #         chapter['content'] = []
-        #         soup = getSoup(get_new_url(url, chapter['chapterLink']))
-        #         if soup.find('div', class_="cha-words"):
-        #             title = soup.find('div', id="chapter-content")
-        #             chapter_cont = soup.find('div', class_="cha-words")
-        #             for string in title.find_all('p'):
-        #                 chapter['content'].append(string.getText())
-        #                 # print(string.getText())
-        #             for paragraph in chapter_cont.find_all('p'):
-        #                 chapter['content'].append(paragraph.getText())
-        #         else:
-        #             chap_content = soup.find('div', id="chapter-content")
-        #             for paragraph in chap_content.find_all('p'):
-        #                 chapter['content'].append(paragraph.getText())
-        #         i += 1
-        #     except HTTPError as e:
-        #         print(e)
-        #     # except ProtocolError as e:
-        #         # print(e.code)
-        #     # except urllib.error.HTTPError as e:
-        #         # print(e.code)
-        #     # except urllib.error.URLError as e:
-        #         # print('URL_Error')
-        #     # except urllib3.error.ProtocolError as e:
-        #         # print("Protocol Error")
-        #     # except socket.timeout as e:
-        #         # print("timeout")
-        #     # except  http.client.HTTPException as e:
-        #         # print("HTTPException")
             
         # chapters_per_novel.append(i)
         # total_chapters += i
@@ -106,10 +82,3 @@ with open("third_data.json", "w") as data_file:
     json.dump(data, data_file, indent=3)
             # for paragraph in p_list:
                 # print(paragraph, "\n")
-
-# import time
-
-# start = time.time()
-# print("hello")
-# end = time.time()
-# print(end - start)
